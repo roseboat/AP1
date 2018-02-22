@@ -1,11 +1,33 @@
 
 public class Grid extends Thread {
 
-	private Intersection grid;
 	private StringBuilder gridBuilder;
 
-	public Grid(Intersection grid) {
-		this.grid = grid;
+	private int gridRows;
+	private int gridColumns;
+	private Grid [][] cityArray;
+	
+	public Grid(int gridColumns, int gridRows) {
+		
+		this.gridColumns = gridColumns;
+		this.gridRows = gridRows;
+		this.cityArray = new Grid[gridColumns][gridRows];
+	}
+
+	public int getGridRows() {
+		return gridRows;
+	}
+
+	public void setGridRows(int gridRows) {
+		this.gridRows = gridRows;
+	}
+
+	public int getGridColumns() {
+		return gridColumns;
+	}
+
+	public void setGridColumns(int gridColumns) {
+		this.gridColumns = gridColumns;
 	}
 
 	public void run() {
@@ -26,6 +48,12 @@ public class Grid extends Thread {
 			gridBuilder.append("-");
 		}
 		gridBuilder.append("\r\n");
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		System.out.print(gridBuilder.toString());
 
 	}

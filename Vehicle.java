@@ -1,11 +1,15 @@
 import java.util.Random;
 
-public abstract class Vehicle {
+public abstract class Vehicle extends Thread {
 
 	protected int size;
 	protected int speed;
-	protected int direction; // 0 = North to South, 1 = East to West
+	protected int direction;
 	protected String symbol;
+	protected int startSquare;
+	protected int endSquare;
+	protected int currentSquare;
+	
 	
 	
 	public Vehicle(int direction) {
@@ -52,4 +56,8 @@ public abstract class Vehicle {
 	public String toString() {
 		return symbol;
 	}
+	
+	public abstract void defineDirection();
+	public abstract void run();
+	
 }

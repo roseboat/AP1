@@ -14,6 +14,19 @@ public class Car extends Vehicle {
 		}
 		
 		// put speed stuff here
-
 	}
+
+	public void run() {
+		
+		
+		
+		
+	}
+	
+	public void defineDirection() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
 }
