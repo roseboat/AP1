@@ -1,61 +1,60 @@
+import java.util.concurrent.locks.ReentrantLock;
 
 public class Grid extends Thread {
-
-	private StringBuilder gridBuilder;
-
+	
+	private int counter; 
+	private StringBuilder gridDisplay;
 	private int gridRows;
 	private int gridColumns;
-	private Grid [][] cityArray;
+	private Intersection[][] cityArray;
+
+	public Grid(int gridColumns, int gridRows, int counter) {
+
+		this.gridColumns = gridColumns;
+		this.gridRows = gridRows;
+		this.counter = counter;
+		this.cityArray = new Intersection[gridRows][gridColumns];
+		this.gridDisplay = new StringBuilder();
+
+		for (int i = 0; i < gridRows; i++) {
+			for (int j = 0; j < gridColumns; j++) {
+				cityArray[i][j] = new Intersection();
+			}
+		}
+	}
 	
-	public Grid(int gridColumns, int gridRows) {
-		
-		this.gridColumns = gridColumns;
-		this.gridRows = gridRows;
-		this.cityArray = new Grid[gridColumns][gridRows];
-	}
-
-	public int getGridRows() {
-		return gridRows;
-	}
-
-	public void setGridRows(int gridRows) {
-		this.gridRows = gridRows;
-	}
-
-	public int getGridColumns() {
-		return gridColumns;
-	}
-
-	public void setGridColumns(int gridColumns) {
-		this.gridColumns = gridColumns;
-	}
-
 	public void run() {
 
-		gridBuilder = new StringBuilder();
-
-		for (int i = 0; i <= grid.getGridColumns() * 2; i++) {
-			gridBuilder.append("-");
-		}
-		gridBuilder.append("\r\n");
-		for (int i = 0; i <= grid.getGridRows(); i++) {
-			for (int j = 0; j <= grid.getGridColumns(); j++) {
-				gridBuilder.append("| ");
+		for(int i = 0; i < counter; i++) {
+			try {
+			
+			Car x = new Car((int) Math.round(Math.random()), cityArray);
+			Car y = new Car((int) Math.round(Math.random()), cityArray);
+			x.start();
+			y.start();
+				
+			for (int a = 0; a <=gridColumns * 2; a++) {
+				gridDisplay.append("- ");
+				}
+			gridDisplay.append("\r\n");
+			for (int j = 0; j < gridColumns; j++) {
+				for (int k = 0; k < gridRows; k++) {
+					Intersection section = cityArray[k][j];
+					gridDisplay.append(section.getSquare());
+				}
+				gridDisplay.append("|\r\n");
 			}
-			gridBuilder.append("\r\n");
-		}
-		for (int i = 0; i <= grid.getGridColumns() * 2; i++) {
-			gridBuilder.append("-");
-		}
-		gridBuilder.append("\r\n");
-		try {
-			Thread.sleep(2000);
+			for (int a = 0; a <=gridColumns * 2; a++) {
+				gridDisplay.append("- ");
+				}
+			gridDisplay.append("\r\n");
+			System.out.print(gridDisplay.toString());
+	
+			Thread.sleep(200);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			break;
 		}
-		System.out.print(gridBuilder.toString());
-
+		}
 	}
-
 }

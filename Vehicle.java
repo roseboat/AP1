@@ -6,21 +6,25 @@ public abstract class Vehicle extends Thread {
 	protected int speed;
 	protected int direction;
 	protected String symbol;
-	protected int startSquare;
-	protected int endSquare;
-	protected int currentSquare;
-	
-	
-	
-	public Vehicle(int direction) {
+	protected int x;
+	protected int y;
+	protected boolean finished = false;
+	protected Intersection position;
+	protected Intersection nextPosition;
+	protected Intersection finishPosition;
+	protected Intersection[][] city;
+
+	public Vehicle(int direction, Intersection[][] city) {
+
 		this.direction = direction;
-		
-		Random ran = new Random();
-		int min = 1000;
-		int max = 4000;
-		
-		this.speed = ran.nextInt(max) + min;
+		this.city = city;
+
 	}
+
+	public abstract void move();
+	public abstract void run();
+
+	// Getters and Setters for the abstract vehicle class
 
 	public int getSize() {
 		return size;
@@ -45,19 +49,12 @@ public abstract class Vehicle extends Thread {
 	public void setDirection(int direction) {
 		this.direction = direction;
 	}
-	 
+
 	public String getSymbol() {
 		return symbol;
 	}
+
 	public void setSymbol(String symbol) {
 		this.symbol = symbol;
 	}
-	
-	public String toString() {
-		return symbol;
-	}
-	
-	public abstract void defineDirection();
-	public abstract void run();
-	
 }
