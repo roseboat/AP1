@@ -2,23 +2,22 @@ import java.util.Random;
 
 public abstract class Vehicle extends Thread {
 
+	protected int direction;
+	protected Intersection[][] city;
 	protected int size;
 	protected int speed;
-	protected int direction;
 	protected String symbol;
 	protected int x;
 	protected int y;
-	protected boolean finished = false;
 	protected Intersection position;
-	protected Intersection nextPosition;
-	protected Intersection finishPosition;
-	protected Intersection[][] city;
+	protected boolean nextIsFree;
+	protected Intersection prePosition;
+	protected Intersection lastPosition;
 
 	public Vehicle(int direction, Intersection[][] city) {
 
 		this.direction = direction;
 		this.city = city;
-
 	}
 
 	public abstract void move();
@@ -56,5 +55,14 @@ public abstract class Vehicle extends Thread {
 
 	public void setSymbol(String symbol) {
 		this.symbol = symbol;
+	}
+	
+	public Intersection getPostion() {
+		return position;
+	}
+	public void setPosition(int a, int b) {
+		this.x = a;
+		this.y = b;
+		position = this.city[x][y];
 	}
 }

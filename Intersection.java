@@ -5,47 +5,72 @@ import java.util.concurrent.locks.ReentrantLock;
 
 public class Intersection extends Thread {
 
-	private Vehicle x;
-	private boolean freeSquare = false;
-	private ReentrantLock freeLock = new ReentrantLock();
-	private Condition freeSpace = freeLock.newCondition();
+	private Vehicle vehicle;
+	private boolean squareIsFree = true;
+	private ReentrantLock squareLock = new ReentrantLock();
+	private Condition squareCondition = squareLock.newCondition();
 	private String square;
+	private final String defaultSquare = "| ";
 	
 	public Intersection() {
-		square = "| ";
+		squareLock.lock();
+		square = defaultSquare;
+		squareLock.unlock();
 	}
-	
-	public void intoPosition(Vehicle x) {
-		this.x = x;
-		square = "|"+x.getSymbol();
-	}
-	
-	public void spaceFree() {
-		freeLock.lock();
-
-		try {
-			while (freeSquare == true) {
-				freeSpace.await();
-				x.move();
-				
-			}
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		freeSpace.signalAll();
-		freeLock.unlock();
-	}
-		
-	
-//	
-//	public void exitGrid() {
-//		if (x.finishPosition)
-//	}
 	
 	public String getSquare() {
 		return square;
 	}
 	
+	// a method to GIVE the intersection a vehicle
+	public void fillPosition(Vehicle vehicle) {
+		
+		squareLock.lock();
+
+			try {
+				while (squareIsFree == false) {
+					squareCondition.await();
+				}
+				squareIsFree = false;
+				this.vehicle = vehicle;
+				square = "|" + vehicle.getSymbol();
+
+			} catch (InterruptedException f) {
+				f.printStackTrace();
+			} finally {
+				
+				squareLock.unlock();
+			}
+		}
 	
+	
+
+	// method to REMOVE a car from the intersection
+	public void leavePosition() {
+		
+		try {
+			Thread.sleep(vehicle.getSpeed());
+		} catch (InterruptedException e1) {
+			e1.printStackTrace();
+		}
+		
+		squareLock.lock();
+		try {
+			while (squareIsFree = false) {
+				squareCondition.await();
+			}
+			square = defaultSquare;
+			squareIsFree = true;
+			squareCondition.signalAll();
+
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		} finally {
+			squareLock.unlock();
+		}
+	}
+	
+	public boolean isSquareFree() {
+		return squareIsFree;
+	}
 }

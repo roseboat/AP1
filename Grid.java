@@ -1,4 +1,3 @@
-import java.util.concurrent.locks.ReentrantLock;
 
 public class Grid extends Thread {
 	
@@ -23,16 +22,19 @@ public class Grid extends Thread {
 		}
 	}
 	
+	public Intersection [][] getCityArray(){
+		return cityArray;
+	}
+	
+	
 	public void run() {
 
 		for(int i = 0; i < counter; i++) {
 			try {
-			
-			Car x = new Car((int) Math.round(Math.random()), cityArray);
-			Car y = new Car((int) Math.round(Math.random()), cityArray);
-			x.start();
-			y.start();
 				
+//			Car x = new Car((int) Math.round(Math.random()), cityArray);
+//			x.start();
+//				
 			for (int a = 0; a <=gridColumns * 2; a++) {
 				gridDisplay.append("- ");
 				}
