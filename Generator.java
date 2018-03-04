@@ -56,9 +56,11 @@ public class Generator extends Thread {
 		// Method called to store all of the generator's vehicle times
 		getTimes();
 
-		// Once all the times are stored, a new Statistics object is created to process
-		// them for printing
-		new Statistics(name, generatorTimes);
+		// If a valid time has been stored, a new Statistics object is created to process
+		// all times for printing.
+		if (!generatorTimes.isEmpty()) {
+			new Statistics(name, generatorTimes);
+		}
 	}
 
 	/**

@@ -12,7 +12,7 @@ public class APSpec2 {
 
 		int rows = 10;
 		int columns = 20;
-		int counter = 200;
+		int counter = 20;
 
 		// Sets up a Grid object and starts its thread
 		Grid glasgowCity = new Grid(rows, columns, counter);

@@ -55,7 +55,7 @@ public class Car extends Vehicle {
 
 		// CARS TRAVELLING SOUTH TO NORTH ON RIGHT OF GRID
 		} else if (direction == 2) {
-			symbol = "o";
+			symbol = "j";
 			x = columns - (random.nextInt(columnSection) + 1); // sets the starting column to be somewhere on the right
 																// hand side of the grid
 			y = rows - 1;
@@ -63,7 +63,7 @@ public class Car extends Vehicle {
 
 			// CARS TRAVELLING EAST TO WEST AT BOTTOM OF GRID
 		} else if (direction == 3) {
-			symbol = "-";
+			symbol = "h";
 			x = columns - 1;
 			y = rows - (random.nextInt(rowSection) + 1);
 			lastPosition = this.city[0][y];

@@ -73,7 +73,7 @@ public class Statistics {
 		}
 		
 		// Calculates the variance by dividing the sum of all squared values by the size
-		// of the data set - 1
+		// of the data set and finding the square root of that value
 		this.variance = (long) Math.sqrt(squareSum / size);
 	}
 
@@ -84,7 +84,7 @@ public class Statistics {
 
 		StringBuilder stats = new StringBuilder("Generator \"" + genName + "\" Statistics:\r\n");
 		stats.append("-------------------------------\r\n");
-		stats.append(String.format("Minimum time: %d ms\r\nMaximum time: %d ms\r\nMean time: %d ms\r\nVariance: %d\r\n", min,
+		stats.append(String.format("Minimum time: %d ms\r\nMaximum time: %d ms\r\nMean time: %d ms\r\nVariance: %d ms\r\n", min,
 				max, mean, variance));
 		stats.append("The number of cars recorded: "+ size + "\r\n");
 		System.out.println(stats.toString());
